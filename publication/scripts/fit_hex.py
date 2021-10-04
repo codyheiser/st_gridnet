@@ -13,10 +13,10 @@ from src.training import train_gnet_2stage, train_gnet_atonce
 import argparse
 
 parser = argparse.ArgumentParser()
-parser.add_argument('imgtrain', type=str, help='Path to training set image directory')
-parser.add_argument('lbltrain', type=str, help='Path to training set label directory')
-parser.add_argument('imgval', type=str, help='Path to validation set image directory')
-parser.add_argument('lblval', type=str, help='Path to validation set label directory')
+parser.add_argument('img_train', type=str, help='Path to training set image directory')
+parser.add_argument('lbl_train', type=str, help='Path to training set label directory')
+parser.add_argument('img_val', type=str, help='Path to validation set image directory')
+parser.add_argument('lbl_val', type=str, help='Path to validation set label directory')
 parser.add_argument('-o', '--outfile', required=True, help='Path to save model output')
 args = parser.parse_args()
 
@@ -31,13 +31,13 @@ xform = transforms.Compose([
 
 atonce_patch_limit=32
 
-patch_train = PatchDataset(img_train, lbl_train, xform)
-grid_train = PatchGridDataset(img_train, lbl_train, xform)
+patch_train = PatchDataset(args.img_train, args.lbl_train, xform)
+grid_train = PatchGridDataset(args.img_train, args.lbl_train, xform)
 
-patch_val = PatchDataset(img_val, lbl_val, xform)
-grid_val = PatchGridDataset(img_val, lbl_val, xform)
+patch_val = PatchDataset(args.img_val, args.lbl_val, xform)
+grid_val = PatchGridDataset(args.img_val, args.lbl_val, xform)
 
-class_names = ["Layer1", "Layer2", "Layer3", "Layer4", "Layer5", "Layer6", "White Matter"]
+class_names = [0, 1, 2, 3, 4]
 n_class = len(class_names)
 
 batch_size=1

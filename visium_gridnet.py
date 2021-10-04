@@ -55,6 +55,7 @@ def grid_from_wsi(fullres_imgfile, tissue_positions_listfile, patch_size=256, wi
 	
 	img = np.array(Image.open(fullres_imgfile))
 	ydim, xdim = img.shape[:2]
+	print(f"xdim: {xdim}, ydim: {ydim}")
 
 	if window_size is None:
 		w = patch_size
@@ -66,7 +67,7 @@ def grid_from_wsi(fullres_imgfile, tissue_positions_listfile, patch_size=256, wi
 		raise ValueError("Window size must be a float or int")
 
 	# Pad image such that no patches extend beyond image boundaries
-	img = np.pad(wsi_img, pad_width=[(w//2, w//2), (w//2, w//2), (0,0)], mode='edge')
+	img = np.pad(img, pad_width=[(w//2, w//2), (w//2, w//2), (0,0)], mode='edge')
 
 	df = pd.read_csv(tissue_positions_listfile, sep=",", header=None, 
 		names=['barcode', 'in_tissue', 'array_row', 'array_col', 'px_row', 'px_col'])

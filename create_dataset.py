@@ -112,8 +112,10 @@ def create_visium_dataset(wsi_files, annot_files, tpl_files, dest_dir, class_nam
 		tokens = Path(tpl_file).name.split("_tissue_positions_list")
 		if len(tokens) > 0:
 			slide = tokens[0]
+			print(f"Slide name: {slide}")
 		else:
 			slide = tpl_file.split(".")[0]
+			print(f"Slide name: {slide}")
 
 		# Generate patch grid tensor (H_ST, W_ST, C, H_p, W_p) and label tensor (H_ST, W_ST)
 		patch_grid = grid_from_wsi(img_file, tpl_file, patch_size=patch_size, window_size=window_size)
@@ -163,7 +165,7 @@ if __name__ == "__main__":
 			args.class_names = list(np.unique(df['annotation']))
 
 		create_visium_dataset(args.imgs, args.annots, args.tpls, args.outdir, args.class_names, 
-			patch_size=args.patch_size, window_size=window_size)
+			patch_size=args.patch_size, window_size=args.window_size)
 
 	else:
 		create_cartesian_dataset(args.imgs, args.annots, args.outdir, 
