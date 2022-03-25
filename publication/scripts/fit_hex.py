@@ -63,6 +63,5 @@ print("Learning Rate: %.4g" % lr)
 print("Alpha: %.4g" % alpha)
 
 # Perform fitting and save model
-train_gnet_2stage(g, [patch_loaders, grid_loaders], lr, alpha=alpha, num_epochs=100,
-	outfile=args.outfile)
+train_gnet_2stage(g, [patch_loaders, grid_loaders], lr, alpha=alpha, num_epochs=5, outfile=args.outfile)
 
